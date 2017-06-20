@@ -9,7 +9,7 @@ def prCyan(prt): print("\033[96m {}\033[00m" .format(prt))
 def prLightGray(prt): print("\033[97m {}\033[00m" .format(prt))
 def prBlack(prt): print("\033[98m {}\033[00m" .format(prt))
 os.system('clear')
-player1 = [["A",".",".",".",".",".",".",".",".",".","."],
+player1 = [["A", ".", ".", ".",".",".",".",".",".",".","."],
             ["B",".",".",".",".",".",".",".",".",".","."],
             ["C",".",".",".",".",".",".",".",".",".","."],
             ["D",".",".",".",".",".",".",".",".",".","."],
@@ -213,6 +213,18 @@ else:
 #Battle
 prRed("Battle!!!")
 
+def check_if_ship_sunk(ship, ship2, message,shipsize,defend,y,x):
+    if defend[l.index(y)-1][int(x)] == ship:
+        defend[l.index(y)-1][int(x)] = ship2
+        k = 0
+        for i in range(10):
+            j = defend[i].count(ship2)
+            k = j+k
+            if k == shipsize:
+                prRed(message)
+                break
+
+
 def round(attack,defend,points,c):
     valami = c[:8] + "'s round!"
     valami2 = c[:8] + " wins!"
@@ -226,56 +238,16 @@ def round(attack,defend,points,c):
             y = fire[:1].upper()
             x = fire[1:]
             os.system('clear')
-            if  defend[l.index(y)-1][int(x)] != ".":
+            if  defend[l.index(y)-1][int(float(x))] != ".":
                 if defend[l.index(y)-1][int(x)] in shiplist2:
                     raise(RuntimeError)
                 else:
                     prGreen("Successful attack, hurray, you can shoot again!!!")
-                if defend[l.index(y)-1][int(x)] == "X":
-                    defend[l.index(y)-1][int(x)] = "X+"
-                    k = 0
-                    for i in range(10):
-                        j = defend[i].count("X+")
-                        k = j+k
-                        if k == 5:
-                            prRed("Ship sunk!")
-                            break
-                if defend[l.index(y)-1][int(x)] == "@":
-                    defend[l.index(y)-1][int(x)] = "@+"
-                    k = 0
-                    for i in range(10):
-                        j = defend[i].count("@+")
-                        k = j+k
-                        if k == 4:
-                            prRed("Ship sunk!")
-                            break
-                if defend[l.index(y)-1][int(x)] == "%":
-                    defend[l.index(y)-1][int(x)] = "%+"
-                    k = 0
-                    for i in range(10):
-                        j = defend[i].count("%+")
-                        k = j+k
-                        if k == 3:
-                            prRed("Ship sunk!")
-                            break
-                if defend[l.index(y)-1][int(x)] == "¤":
-                    defend[l.index(y)-1][int(x)] = "¤+"
-                    k = 0
-                    for i in range(10):
-                        j = defend[i].count("¤+")
-                        k = j+k
-                        if k == 3:
-                            prRed("Ship sunk!")
-                            break
-                if defend[l.index(y)-1][int(x)] == "$":
-                    defend[l.index(y)-1][int(x)] = "$+"
-                    k = 0
-                    for i in range(10):
-                        j = defend[i].count("$+")
-                        k = j+k
-                        if k == 2:
-                            prRed("Ship sunk!")
-                            break
+                check_if_ship_sunk("X","X+","Ship sunk!",5,defend,y,x)
+                check_if_ship_sunk("@","@+","Ship sunk!",4,defend,y,x)
+                check_if_ship_sunk("%","%+","Ship sunk!",3,defend,y,x)
+                check_if_ship_sunk("¤","¤+","Ship sunk!",3,defend,y,x)
+                check_if_ship_sunk("$","$+","Ship sunk!",2,defend,y,x)
                 attack[l.index(y)-1][int(x)] = "#"
                 points.append(1)
                 if points.count(1) == 17:
@@ -294,6 +266,8 @@ def round(attack,defend,points,c):
         except:
             prLightPurple("How hard it is to insert a valid input, come on?!")
             continue
+
+
 def roundai(attack,defend,points,c):
     valami = c+ "'s round!"
     valami2 = c + " wins!"
@@ -307,51 +281,11 @@ def roundai(attack,defend,points,c):
             if  defend[y][x] != ".":
                 if defend[y][x] in shiplist2:
                     raise(RuntimeError)
-                if defend[y][x] == "X":
-                    defend[y][x] = "X+"
-                    k = 0
-                    for i in range(10):
-                        j = defend[i].count("X+")
-                        k = j+k
-                        if k == 5:
-                            print("Your ship sunk, OMG!")
-                            break
-                if defend[y][x] == "@":
-                    defend[y][x] = "@+"
-                    k = 0
-                    for i in range(10):
-                        j = defend[i].count("@+")
-                        k = j+k
-                        if k == 4:
-                            print("Your ship sunk, OMG!")
-                            break
-                if defend[y][x] == "%":
-                    defend[y][x] = "%+"
-                    k = 0
-                    for i in range(10):
-                        j = defend[i].count("%+")
-                        k = j+k
-                        if k == 3:
-                            print("Your ship sunk, OMG!")
-                            break
-                if defend[y][x] == "¤":
-                    defend[y][x] = "¤+"
-                    k = 0
-                    for i in range(10):
-                        j = defend[i].count("¤+")
-                        k = j+k
-                        if k == 3:
-                            print("Your ship sunk, OMG!")
-                            break
-                if defend[y][x] == "$":
-                    defend[y][x] = "$+"
-                    k = 0
-                    for i in range(10):
-                        j = defend[i].count("$+")
-                        k = j+k
-                        if k == 2:
-                            print("Your ship sunk, OMG!")
-                            break
+                check_if_ship_sunk("X","X+","Your ship sunk, OMG!",5,defend,y,x)
+                check_if_ship_sunk("@","@+","Your ship sunk, OMG!",4,defend,y,x)
+                check_if_ship_sunk("%","%+","Your ship sunk, OMG!",3,defend,y,x)
+                check_if_ship_sunk("¤","¤+","Your ship sunk, OMG!",3,defend,y,x)
+                check_if_ship_sunk("$","$+","Your ship sunk, OMG!",2,defend,y,x)
                 attack[y][x] = "#"
                 points.append(1)
                 if points.count(1) == 17:
@@ -368,6 +302,8 @@ def roundai(attack,defend,points,c):
             continue
         except:
             continue
+
+
 if ai.upper() == "N":
     while True:
         round(player1a,player2,p1points,"Player 1")
