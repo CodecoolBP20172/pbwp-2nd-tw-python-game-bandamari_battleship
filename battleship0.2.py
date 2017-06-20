@@ -70,14 +70,14 @@ def setship(r,board,ship):
     while True:
         try:
             g = 0
-            carrierp1 = input(question)
-            if carrierp1 == "q":
+            ship_place = input(question)
+            if ship_place == "q":
                 quit()
-            carrierp1place = input("Horizontal(H) or vertical(V)?:")
+            horizont_or_vertical_input = input("Horizontal(H) or vertical(V)?:")
             os.system('clear')
-            y = carrierp1[:1].upper()
-            x = carrierp1[1:]
-            if carrierp1place.upper() == "V":
+            y = ship_place[:1].upper()
+            x = ship_place[1:]
+            if horizont_or_vertical_input.upper() == "V":
                 for i in range(r):
                     if board[l.index(y)-1+i][int(x)] in shiplist:
                         print("Ship already in the way!")
@@ -88,7 +88,7 @@ def setship(r,board,ship):
                     continue
                 for i in range(r):
                     board[l.index(y)-1+i][int(x)] = ship
-            elif carrierp1place.upper() == "H":
+            elif horizont_or_vertical_input.upper() == "H":
                 for i in range(r):
                     if board[l.index(y)-1][int(x)+i] in shiplist:
                         print("Ship already in the way!")
@@ -116,11 +116,11 @@ def setshipai(r,board,ship):
     while True:
         try:
             g = 0
-            carrierp1 = random.randrange(0,10,1)
-            carrierp2 = random.randrange(1,11,1)
-            carrierp1place = random.randrange(1,3,1)
-            y = carrierp1
-            x = carrierp2
+            ship_place = random.randrange(0,10,1)
+            ship_place2 = random.randrange(1,11,1)
+            horizont_or_vertical_input = random.randrange(1,3,1)
+            y = ship_place
+            x = ship_place2
             
             for i in range(r):
                 if board[y+i][x] in shiplist:
@@ -131,7 +131,7 @@ def setshipai(r,board,ship):
                     break
             if g == 1:
                 continue
-            if carrierp1place == 1:
+            if horizont_or_vertical_input == 1:
                 for i in range(r):
                     if board[y+i][x] in shiplist:
                         g = 1
@@ -140,7 +140,7 @@ def setshipai(r,board,ship):
                     continue   
                 for i in range(r):
                     board[y+i][x] = ship
-            elif carrierp1place == 2:
+            elif horizont_or_vertical_input == 2:
                 for i in range(r):
                     if board[y][x+i] in shiplist:
                         g = 1
