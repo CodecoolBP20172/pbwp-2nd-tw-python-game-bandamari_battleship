@@ -145,7 +145,7 @@ def place_kraken(player1, player2):
         try:
             krakenplace = random.randrange(0, 10, 1)
             krakenplace2 = random.randrange(1, 11, 1)
-            if player1[krakenplace][krakenplace2] == ".":
+            if player1[krakenplace][krakenplace2] == "." and player2[krakenplace][krakenplace2] == ".":
                 player1[krakenplace][krakenplace2] = "K"
                 player2[krakenplace][krakenplace2] = "K"
                 break
@@ -270,7 +270,6 @@ def round(attack, defend, points, points2, name, attack1, defend2):
         print_red(who_wins)
         winmusic = pygame.mixer.Sound("Drama_Button.wav")
         winmusic.play()
-        music.stop()
         time.sleep(5)
         quit()
     while True:
@@ -305,7 +304,6 @@ def round(attack, defend, points, points2, name, attack1, defend2):
                     print_red(who_wins)
                     winmusic = pygame.mixer.Sound("Drama_Button.wav")
                     winmusic.play()
-                    music.stop()
                     time.sleep(5)
                     quit()
                 continue
@@ -318,7 +316,7 @@ def round(attack, defend, points, points2, name, attack1, defend2):
         except RuntimeError:
             print_lightpurple("Why on earth would you shoot the same part of a ship twice?! Try again!")
             continue
-        except:
+        except (ValueError, IndexError):
             print_lightpurple("How hard it is to insert a valid input, come on?!")
             continue
 
@@ -333,7 +331,6 @@ def round_ai(attack, defend, points, points2, name, attack1, defend2):
         print_red(who_wins)
         winmusic = pygame.mixer.Sound("Drama_Button.wav")
         winmusic.play()
-        music.stop()
         time.sleep(5)
         quit()
     while True:
@@ -363,7 +360,6 @@ def round_ai(attack, defend, points, points2, name, attack1, defend2):
                     print_red(who_wins)
                     winmusic = pygame.mixer.Sound("Drama_Button.wav")
                     winmusic.play()
-                    music.stop()
                     time.sleep(5)
                     quit()
                 continue
